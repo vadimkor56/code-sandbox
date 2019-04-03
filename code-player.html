@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Code Sandbox</title>
+        
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="jquery-ui/jquery-ui.js"></script>
+        
+        <link href="jquery-ui/jquery-ui.css" rel="stylesheet">
+        <link rel="shortcut icon" href="images/icon.ico" type="image/x-icon">
+
+        <style>
+            #header {
+                border-radius: 20px;
+                width: 100%;
+                height: auto;
+                margin: 0 auto;
+                background-color: #E2E1E2;
+                font-family: sans-serif;
+                
+                border-bottom-right-radius: 0px;
+                border-bottom-left-radius: 0px;
+                
+                display: flex;
+                flex-direction: row;
+                justify-content: space-evenly;
+            }
+            
+            #theme-div {
+                width: 33%;
+            }
+            
+            .theme-button {
+                outline: none;
+                float: right;
+                margin: 25px 10px 20px 0px;
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                background-color: black;
+                border: 1px solid darkgrey;
+            }
+            
+            #dark {
+                background-color: 
+            }
+            
+            #light {
+                background-color: beige;
+            }
+            
+            .theme-button:hover {
+                cursor: pointer;
+            }
+            
+            #lang-bar {
+               
+                width: 33%;
+                margin-top: 25px;
+                text-align: center;
+                
+                
+            }
+            
+            #proj-name {
+                
+                margin-left: 10px;
+                width: 41%;
+              
+            }
+            
+            #lang-bar button {
+                border-color:#d8d8d8;
+                font-size: 20px;
+                height: 40px;
+                width: auto;
+                margin: 0;
+                float: left;
+                outline: none;
+            }
+            
+            #css-button {
+                background-color: #ECEAEC;
+            }
+            
+            #js-button {
+                background-color: #ECEAEC;
+            }
+            
+            #html-button {
+                border-bottom-left-radius: 8px;
+                border-top-left-radius: 8px;
+                background-color: #EBEEFC;
+            }
+            
+            #output-button {
+                border-bottom-right-radius: 8px;
+                border-top-right-radius: 8px;
+                background-color: #EBEEFC;
+            }
+            
+            
+            #textarea-container {
+                width: 100%;
+                margin: 0 auto;
+                height: 100%;
+                background-color: aliceblue;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-evenly;
+                align-items: stretch;
+            }
+            
+            #textarea-container textarea {
+                resize: none;
+                overflow: auto;
+                font-size: 120%;
+                height: 650px;
+                float: left;
+                width: 50%;
+                outline: none;
+	            -moz-appearance: none;
+            }
+            
+            #output-area {
+                display: block;
+                height: 654px;
+                background-color: white;
+                border-style: solid;
+                border-width: 1px 1px 1px 1px;
+                border-color: #7f7f7f;
+                width: 50%;
+            }
+            
+            #output-area span {
+                margin: 5px;
+            }
+            
+            #css-textarea {
+                display: none;
+            }
+            
+            #js-textarea {
+                display: none;
+            }
+        
+            
+        </style>
+
+    </head>
+
+    <body>
+        <div id="header">
+            <h1 id="proj-name">Code Sandbox</h1>
+            <div id="lang-bar">
+                <button id="html-button">HTML</button>
+                <button id="css-button">CSS</button>
+                <button id="js-button">JavaScript</button>
+                <button id="output-button">Output</button>
+            </div>
+            <div id="theme-div">
+                <button id="dark" class="theme-button"></button>
+                <button id="light" class="theme-button"></button>
+            </div>
+        </div>
+        
+        <div id="textarea-container">
+            <textarea class="block" id="html-textarea" placeholder="Type your HTML code here!"></textarea>
+            <textarea class="block" id="css-textarea" placeholder="Type your CSS code here!"></textarea>
+            <textarea class="block" id="js-textarea" placeholder="Type your JavaScript code here!"></textarea>
+            <iframe class="block" id="output-area">
+                <span>Here is going to be the output of your code!</span>
+            </iframe>
+        </div>
+        
+        
+    </body>
+    
+    
+    <script type="text/javascript">
+        var activeTabs = 2;
+        var relation = {"html-button": "#html-textarea", "css-button": "#css-textarea", "js-button": "#js-textarea", "output-button": "#output-area"}
+        $("#lang-bar").find("button").click(function() {
+            if ($(this).css("background-color") == "rgb(235, 238, 252)") {
+                $(this).css("background-color", "#ECEAEC");
+                $(relation[$(this).attr("id")]).css("display", "none");
+                
+                activeTabs--;
+                widthPercent = (100/activeTabs).toString() + "%";
+                $(".block").css("width", widthPercent);
+            } else {
+                $(this).css("background-color", "#EBEEFC");
+                $(relation[$(this).attr("id")]).css("display", "block");
+                
+                activeTabs++;
+                widthPercent = (100/activeTabs).toString() + "%";
+                $(".block").css("width", widthPercent);
+            }
+            
+        });
+        
+        $("#dark").click(function() {
+            $("h1").css("color", "white"); 
+            $("#header").css("background-color", "#444E51"); 
+            $("body").css("background-color", "#1E1E1E");
+            $("textarea").css("color", "white").css("background-color", "#1E1E1E").css("border-color", "black"); 
+            $("#output-area").css("color", "white").css("background-color", "#1E1E1E").css("border-color", "black"); 
+            $("#css-textarea").html("* {color: white;}");
+             $("#lang-bar").find("button").
+             css("border-color", "#1E1E1E");
+            
+            
+        });
+        
+        $("#light").click(function() {
+            $("h1").css("color", "black"); 
+            $("#header").css("background-color", "#E2E1E2"); 
+            $("body").css("background-color", "white");
+            $("textarea").css("color", "black").css("background-color", "white").css("border-color", "#7f7f7f"); 
+            $("#output-area").css("color", "black").css("background-color", "white").css("border-color", "#7f7f7f"); 
+            $("#css-textarea").html("");
+            $("#lang-bar").find("button").
+             css("border-color", "#d8d8d8");
+            
+        });
+        
+        $(document).delegate('textarea', 'keydown', function(e) {
+          var keyCode = e.keyCode || e.which;
+
+          if (keyCode == 9) {
+            e.preventDefault();
+            var start = this.selectionStart;
+            var end = this.selectionEnd;
+
+            // set textarea value to: text before caret + tab + text after caret
+            $(this).val($(this).val().substring(0, start)
+                        + "\t"
+                        + $(this).val().substring(end));
+
+            // put caret at right position again
+            this.selectionStart =
+            this.selectionEnd = start + 1;
+          }
+        });
+        
+        $("textarea").on('input', function() {
+            $("#output-area").contents().
+            find("html").
+            html("<html><head><style type='text/css'>" + $("#css-textarea").val() + "</style></head><body>" + $("#html-textarea").val() + "</body></html>");
+            document.getElementById("output-area").contentWindow.eval($("#js-textarea").val());
+        });
+        
+        
+    </script>
+</html>
+
